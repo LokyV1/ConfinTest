@@ -36,7 +36,6 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -133,7 +132,7 @@ const chartData = [
   { month: "Settembre", vendite: 256 },
   { month: "Ottobre", vendite: 265 },
   { month: "Novembre", vendite: 289 },
-  { month: "Dicembre", vendite: 298 },
+  { month: "Dicembre", vendite: 400 },
 ];
 
 export type Pagamento = {
@@ -221,23 +220,6 @@ export function DataTable() {
   const columns: ColumnDef<Pagamento>[] = [
     {
       id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Seleziona tutto"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Seleziona riga"
-        />
-      ),
       enableSorting: false,
       enableHiding: false,
     },
@@ -266,11 +248,10 @@ export function DataTable() {
       ),
     },
     {
-      accessorKey: "amount",
-      header: () => <div className="text-right">Importo</div>,
+      accessorKey: "Quantità",
+      header: () => <div className="text-right">Quantità</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("amount"));
-        // Format the amount as a dollar amount
+        const amount = parseFloat(row.getValue("Quantità"));
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
@@ -287,7 +268,7 @@ export function DataTable() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">Apri menu</span>
                 <MoreHorizontal />
               </Button>
             </DropdownMenuTrigger>
