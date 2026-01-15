@@ -251,7 +251,7 @@ export function DataTable() {
       accessorKey: "Quantità",
       header: () => <div className="text-right">Quantità</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("Quantità"));
+        const amount = parseFloat(row.getValue("amount"));
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
