@@ -1,47 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import {
-  AlertDialogMessage,
-  ButtonDemo,
-  SwitchButton,
-  Sonner,
-  Chart,
-  DataTable,
-} from "./App";
-
-const styles = {
-  button: {
-    margin: "10px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    gap: "10px",
-  },
-} as const;
+import { Chart, DataTable } from "./components/DashboardComponents";
 
 function Home() {
   return (
-    <>
-      <div className="center" style={styles.button}>
-        <AlertDialogMessage />
-        <ButtonDemo />
-      </div>
+    <div className="center" style={{ marginTop: "20px", padding: "0 20px" }}>
+      <DataTable />
+    </div>
+  );
+}
 
-      <div className="center" style={styles.button}>
-        <SwitchButton />
-      </div>
-      <div className="center" style={styles.button}>
-        <Sonner />
-      </div>
-
-      <div className="center" style={{ marginTop: "20px" }}>
-        <Chart />
-      </div>
-
-      <div className="center" style={{ marginTop: "20px" }}>
-        <DataTable />
-      </div>
-    </>
+function Grafici() {
+  return (
+    <div className="center" style={{ marginTop: "20px", padding: "0 20px" }}>
+      <Chart />
+    </div>
   );
 }
 
@@ -61,6 +33,7 @@ export function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/grafici" element={<Grafici />} />
       <Route path="/docs" element={<Docs />} />
       {/* Fallback route */}
       <Route

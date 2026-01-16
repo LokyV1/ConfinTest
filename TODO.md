@@ -1,6 +1,8 @@
 ### TODO
 
 - [ implementare un data table con le informazioni anagrafiche delle aziende usando shadcn ]
+- [ le informazioni delle aziende devono essere: id, città(opzionale), nome dell'azienda, email(opzionale), pec (opzionale), telefono(opzionale), vat(opzionale), codice zip(opzionale), nazione(opzionale) ]
+
 - [ implementare una logica di ricerca per il data table ]
 - [ il data table deve essere paginato e avere un numero massimo di 5 elementi per pagina ]
 - [ implementare una logica per ordinare le aziende in base al nome ]
