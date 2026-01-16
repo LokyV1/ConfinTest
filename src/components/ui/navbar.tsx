@@ -2,11 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "./navigation-menu";
 import { cn } from "@/lib/utils";
