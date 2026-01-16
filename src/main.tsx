@@ -6,11 +6,12 @@ import App from "./App.tsx";
 import Navbar from "./components/ui/navbar.tsx";
 import Footer from "./components/ui/footer.tsx";
 
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Navbar />
-      <App />
+        <App />
       <Footer />
     </BrowserRouter>
   </StrictMode>
