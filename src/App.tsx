@@ -265,28 +265,75 @@ export function DataTable() {
       cell: ({ row }) => {
         const pagamento = row.original;
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Apri menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Azioni</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(pagamento.id)}
-              >
-                Copia ID pagamento
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Dettagli pagamento</DropdownMenuItem>
-              <DropdownMenuItem>Dettagli cliente</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleDelete(pagamento.id)}>
-                Elimina
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <AlertDialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="h-8 w-8 p-0 hover:bg-muted transition-colors"
+                >
+                  <span className="sr-only">Apri menu</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuLabel>Azioni</DropdownMenuLabel>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => {
+                    navigator.clipboard.writeText(pagamento.id);
+                    toast.success("ID copiato negli appunti");
+                  }}
+                >
+                  Copia ID pagamento
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer">
+                  Dettagli pagamento
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">
+                  Dettagli cliente
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <AlertDialogTrigger asChild>
+                  <DropdownMenuItem
+                    className="text-destructive focus:text-destructive cursor-pointer"
+                    onSelect={(e) => e.preventDefault()}
+                  >
+                    Elimina
+                  </DropdownMenuItem>
+                </AlertDialogTrigger>
+                <DropdownMenuSeparator />
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <AlertDialogContent className="sm:max-w-[425px]">
+              <AlertDialogHeader>
+                <AlertDialogTitle className="text-xl font-semibold text-foreground">
+                  Conferma eliminazione
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-muted-foreground mt-2">
+                  Sei sicuro di voler eliminare il pagamento di{" "}
+                  <strong className="text-foreground">{pagamento.Nome}</strong>?
+                  Questa operazione è irreversibile e i dati verranno rimossi
+                  permanentemente.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="mt-6 flex gap-2">
+                <AlertDialogCancel className="hover:bg-accent transition-colors">
+                  Annulla
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    handleDelete(pagamento.id);
+                    toast.error(`Pagamento di ${pagamento.Nome} eliminato`);
+                  }}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors shadow-sm"
+                >
+                  Elimina definitivamente
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         );
       },
     },
