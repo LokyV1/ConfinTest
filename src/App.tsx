@@ -138,7 +138,7 @@ const chartData = [
 export type Pagamento = {
   id: string;
   amount: number;
-  status: "In attesa" | "In corso" | "Completato" | "Annullato";
+  stato: "In attesa" | "In corso" | "Completato" | "Annullato";
   Nome: string;
 };
 
@@ -147,61 +147,61 @@ export function DataTable() {
     {
       id: "m5gr84i9",
       amount: 316,
-      status: "Completato",
+      stato: "Completato",
       Nome: "Azienda1",
     },
     {
       id: "3u1reuv4",
       amount: 242,
-      status: "Completato",
+      stato: "Completato",
       Nome: "Azienda2",
     },
     {
       id: "derv1ws0",
       amount: 837,
-      status: "In corso",
+      stato: "In corso",
       Nome: "Azienda3",
     },
     {
       id: "5kma53ae",
       amount: 874,
-      status: "Completato",
+      stato: "Completato",
       Nome: "Azienda4",
     },
     {
       id: "bhqegj4p",
       amount: 721,
-      status: "Annullato",
+      stato: "Annullato",
       Nome: "Azienda5",
     },
     {
       id: "bhqefj4t",
       amount: 721,
-      status: "Annullato",
+      stato: "Annullato",
       Nome: "Azienda6",
     },
     {
       id: "bhqefj4p",
       amount: 721,
-      status: "Annullato",
+      stato: "Annullato",
       Nome: "Azienda7",
     },
     {
       id: "bhqebj4p",
       amount: 721,
-      status: "Annullato",
+      stato: "Annullato",
       Nome: "Azienda8",
     },
     {
       id: "b2qecj4p",
       amount: 721,
-      status: "Annullato",
+      stato: "Annullato",
       Nome: "Azienda9",
     },
     {
       id: "bhq1cj4p",
       amount: 721,
-      status: "Annullato",
+      stato: "Annullato",
       Nome: "Azienda10",
     },
   ]);
@@ -224,10 +224,10 @@ export function DataTable() {
       enableHiding: false,
     },
     {
-      accessorKey: "status",
+      accessorKey: "stato",
       header: "Stato",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("status")}</div>
+        <div className="capitalize">{row.getValue("stato")}</div>
       ),
     },
     {
