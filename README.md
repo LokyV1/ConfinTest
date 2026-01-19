@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# ConfinTest 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Typescript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Currently, two official plugins are available:
+**ConfinTest** è una dashboard moderna sviluppata con React e Vite, progettata per la gestione e visualizzazione dei dati con un'interfaccia utente basata su Shadcn UI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Funzionalità
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **📊 Dashboard Interattiva**: Visualizzazione dei dati tramite grafici dinamici e reattivi.
+- **📑 Data Table Avanzata**: Gestione delle tabelle con ricerca, paginazione e selezione delle righe.
+- **🎨 UI Moderna**: Design pulito e professionale realizzato con Tailwind CSS e componenti Shadcn/UI.
+- **🧭 Routing lato client**: Navigazione fluida tra le sezioni (Home, Grafici, Documentazione) tramite React Router.
+- **🌓 Supporto Temi**: Predisposizione per modalità Light/Dark.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Core:** React 19, TypeScript, Vite
+- **Styling:** Tailwind CSS, Lucide React (Icone)
+- **Components:** Shadcn/UI, Radix UI
+- **Data Fetching/State:** Quart, Postgres
+- **Visualizzazione:** Recharts
+- **Routing:** React Router DOM
+- **Feedback:** Sonner (Toast notifications)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🚀 Installazione e Setup
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisiti
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Assicurati di avere installato [Node.js](https://nodejs.org/) (versione 18 o superiore consigliata).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Passaggi
+
+1.  **Clona il repository**
+
+    ```bash
+    git clone [url-del-tuo-repo]
+    cd ConfinTest
+    ```
+
+2.  **Installa le dipendenze**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Avvia il server di sviluppo**
+    ```bash
+    npm run dev
+    ```
+    L'applicazione sarà disponibile all'indirizzo `http://localhost:5173`.
+
+---
+
+## 📖 Script Disponibili
+
+Nel file `package.json` trovi i seguenti script configurati:
+
+- `npm run dev`: Avvia il server di sviluppo Vite.
+- `npm run build`: Compila l'applicazione per la produzione (eseguendo il check TypeScript).
+- `npm run lint`: Esegue l'analisi statica del codice per trovare errori.
+- `npm run preview`: Avvia una preview locale della build di produzione.
+
+---
+
+## 📂 Struttura Cartelle Principali
+
+- `src/components`: Contiene tutti i componenti UI riutilizzabili e i moduli della dashboard.
+- `src/AppRouter.tsx`: Configurazione delle rotte dell'applicazione.
+- `src/App.tsx`: Punto di ingresso principale con i provider globali.
+- `public/`: Asset statici pubblici.
+
+---

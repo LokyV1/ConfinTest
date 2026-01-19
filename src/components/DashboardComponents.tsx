@@ -225,7 +225,7 @@ export function DataTable() {
   ]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -237,7 +237,7 @@ export function DataTable() {
 
   const handleUpdate = (updatedAzienda: Azienda) => {
     setData((prev) =>
-      prev.map((a) => (a.id === updatedAzienda.id ? updatedAzienda : a))
+      prev.map((a) => (a.id === updatedAzienda.id ? updatedAzienda : a)),
     );
     toast.success("Azienda aggiornata con successo");
   };
@@ -321,7 +321,7 @@ export function DataTable() {
     onRowSelectionChange: setRowSelection,
     initialState: {
       pagination: {
-        pageSize: 5,
+        pageSize: 5, //numero di righe per pagina
       },
     },
     state: {
@@ -383,7 +383,7 @@ export function DataTable() {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -402,7 +402,7 @@ export function DataTable() {
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -422,10 +422,10 @@ export function DataTable() {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+        {/* <div className="text-muted-foreground flex-1 text-sm">
+          {table.getFilteredSelectedRowModel().rows.length} di{" "}
+          {table.getFilteredRowModel().rows.length} righe visualizzate.
+        </div> */}
         <div className="space-x-2">
           <Button
             variant="outline"
@@ -508,7 +508,7 @@ function DataTableRowActions({
             <DialogHeader>
               <DialogTitle>Modifica Azienda</DialogTitle>
               <DialogDescription>
-                Aggiorna le informazioni dell'azienda qui sotto.
+                Aggiorna le informazioni dell'azienda.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto px-1">
@@ -759,7 +759,7 @@ function AddAziendaDialog({ onAdd }: { onAdd: (az: Azienda) => void }) {
         <DialogHeader>
           <DialogTitle>Aggiungi Nuova Azienda</DialogTitle>
           <DialogDescription>
-            Inserisci i dettagli della nuova azienda qui sotto.
+            Inserisci i dettagli della nuova azienda.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>

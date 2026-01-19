@@ -35,7 +35,7 @@ export function AppRouter() {
       <Route path="/" element={<Home />} />
       <Route path="/grafici" element={<Grafici />} />
       <Route path="/docs" element={<Docs />} />
-      {/* Fallback route */}
+      {/* Route per pagina non trovata */ }
       <Route
         path="*"
         element={
