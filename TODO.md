@@ -1,12 +1,38 @@
-### TODO
+# Progetto ConfinTest - Todo
 
-- [ implementare un data table con le informazioni anagrafiche delle aziende usando shadcn ]
-- [ le informazioni delle aziende devono essere: id, città(opzionale), nome dell'azienda, email(opzionale), pec (opzionale), telefono(opzionale), vat(opzionale), codice zip(opzionale), nazione(opzionale) ]
+## 📦 Pacchetti da Installare / Setup Librerie
 
-- [ implementare una logica di ricerca per il data table ]
-- [ il data table deve essere paginato e avere un numero massimo di 5 elementi per pagina ]
-- [ implementare una logica per ordinare le aziende in base al nome ]
-- [ implementare un tasto per nascondere alcuni parametri del data table ]
-- [ implementare un tasto che apra un dialog per modificare le informazioni di un azienda ]
-- [ implementare un tasto per eliminare un azienda ]
-- [ implementare un tasto per aggiungere una nuova azienda ]
+### Base e Styling
+
+- [x] Vite + React (TypeScript)
+- [x] Tailwind CSS
+- [x] Autoprefixer & PostCSS
+
+### UI Components (Shadcn/UI)
+
+- [x] Inizializzazione Shadcn/UI (`npx shadcn-ui@latest init`)
+- [x] **Componenti Core:**
+  - [x] Button
+  - [x] Input
+  - [x] Card
+  - [x] Dialog / Modal
+  - [x] Dropdown Menu
+  - [x] Form
+  - [x] Table (via TanStack Table)
+  - [x] Toast (Sonner)
+  - [x] Tooltip
+  - [x] Navigation Menu
+  - [x] Avatar
+  - [x] Alert Dialog
+
+### Librerie Funzionali
+
+- [x] **Icone:** `lucide-react`
+- [x] **Routing:** `react-router-dom`
+- [x] **Gestione Tabelle:** `@tanstack/react-table`
+- [x] **Grafici:** `recharts`
+- [x] **Temi:** `next-themes`
+- [ ] **Validazione Form:** `zod` e `react-hook-form` (da aggiungere)
+- [ ] **Animazioni:** `framer-motion` (da aggiungere)
+- [ ] **Gestione Date:** `date-fns` (da aggiungere)
+- [ ] **Data Fetching:** `@tanstack/react-query` o `axios` (da aggiungere)
