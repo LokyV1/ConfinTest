@@ -1,12 +1,11 @@
 import * as React from "react";
 import {
-  ArrowUpIcon,
   ArrowUpDown,
   ChevronDown,
   MoreHorizontal,
+  Settings,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -65,70 +64,11 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { toast } from "sonner";
-
-export function ButtonDemo() {
-  return (
-    <div className="flex flex-wrap items-center gap-2 md:flex-row">
-      <Button variant="outline">Bottone</Button>
-      <Button variant="outline" size="icon" aria-label="Submit">
-        <ArrowUpIcon />
-      </Button>
-    </div>
-  );
-}
-
-export function Sonner() {
-  return (
-    <Button
-      variant="outline"
-      onClick={() =>
-        toast("Titolo toast", {
-          description: "Descrizione evento",
-          action: {
-            label: "Tasto azione",
-            onClick: () => console.log("Tasto azione premuto"),
-          },
-        })
-      }
-    >
-      Show Toast
-    </Button>
-  );
-}
-
-export function AlertDialogMessage() {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Mostra Dialog</Button>
-      </AlertDialogTrigger>
-
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Sei sicuro?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Questa azione non può essere annullata. Questo cancellerà
-            permanentemente il tuo account e rimuoverà i tuoi dati dai nostri
-            server.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Annulla</AlertDialogCancel>
-          <AlertDialogAction>Continua</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
-
-export function SwitchButton() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Switch id="airplane-mode" />
-      <Label htmlFor="airplane-mode">Testo Switch</Label>
-    </div>
-  );
-}
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const chartData = [
   { month: "Gennaio", vendite: 186 },
@@ -726,6 +666,21 @@ function AddAziendaDialog({ onAdd }: { onAdd: (az: Azienda) => void }) {
     nazione: "",
   });
 
+  const [visibleFields, setVisibleFields] = React.useState({
+    nome: true,
+    città: true,
+    email: true,
+    pec: true,
+    telefono: true,
+    vat: true,
+    cap: true,
+    nazione: true,
+  });
+
+  const toggleField = (field: keyof typeof visibleFields) => {
+    setVisibleFields((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newAz.nome) {
@@ -761,110 +716,197 @@ function AddAziendaDialog({ onAdd }: { onAdd: (az: Azienda) => void }) {
           <DialogDescription>
             Inserisci i dettagli della nuova azienda.
           </DialogDescription>
+          <div className="pt-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8 gap-1">
+                      <Settings className="h-3.5 w-3.5" />
+                      <span>Personalizza campi</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.nome}
+                      onCheckedChange={() => toggleField("nome")}
+                    >
+                      Nome
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.città}
+                      onCheckedChange={() => toggleField("città")}
+                    >
+                      Città
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.email}
+                      onCheckedChange={() => toggleField("email")}
+                    >
+                      Email
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.pec}
+                      onCheckedChange={() => toggleField("pec")}
+                    >
+                      Pec
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.telefono}
+                      onCheckedChange={() => toggleField("telefono")}
+                    >
+                      Telefono
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.vat}
+                      onCheckedChange={() => toggleField("vat")}
+                    >
+                      Vat
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.cap}
+                      onCheckedChange={() => toggleField("cap")}
+                    >
+                      Cap
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={visibleFields.nazione}
+                      onCheckedChange={() => toggleField("nazione")}
+                    >
+                      Nazione
+                    </DropdownMenuCheckboxItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Personalizza i campi della tabella</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto px-1">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="nome" className="text-right">
-                Nome
-              </Label>
-              <Input
-                id="nome"
-                value={newAz.nome}
-                onChange={(e) => setNewAz({ ...newAz, nome: e.target.value })}
-                className="col-span-3"
-                placeholder="Google Inc."
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="città" className="text-right">
-                Città
-              </Label>
-              <Input
-                id="città"
-                value={newAz.città}
-                onChange={(e) => setNewAz({ ...newAz, città: e.target.value })}
-                className="col-span-3"
-                placeholder="Mountain View"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email" className="text-right">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={newAz.email}
-                onChange={(e) => setNewAz({ ...newAz, email: e.target.value })}
-                className="col-span-3"
-                placeholder="info@google.com"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="pec" className="text-right">
-                PEC
-              </Label>
-              <Input
-                id="pec"
-                value={newAz.pec}
-                onChange={(e) => setNewAz({ ...newAz, pec: e.target.value })}
-                className="col-span-3"
-                placeholder="pec@azienda.it"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="telefono" className="text-right">
-                Telefono
-              </Label>
-              <Input
-                id="telefono"
-                value={newAz.telefono}
-                onChange={(e) =>
-                  setNewAz({ ...newAz, telefono: e.target.value })
-                }
-                className="col-span-3"
-                placeholder="+39 0123 4567"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="vat" className="text-right">
-                VAT/P.IVA
-              </Label>
-              <Input
-                id="vat"
-                value={newAz.vat}
-                onChange={(e) => setNewAz({ ...newAz, vat: e.target.value })}
-                className="col-span-3"
-                placeholder="IT12345678901"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="cap" className="text-right">
-                CAP
-              </Label>
-              <Input
-                id="cap"
-                value={newAz.cap}
-                onChange={(e) => setNewAz({ ...newAz, cap: e.target.value })}
-                className="col-span-3"
-                placeholder="00100"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="nazione" className="text-right">
-                Nazione
-              </Label>
-              <Input
-                id="nazione"
-                value={newAz.nazione}
-                onChange={(e) =>
-                  setNewAz({ ...newAz, nazione: e.target.value })
-                }
-                className="col-span-3"
-                placeholder="Italia"
-              />
-            </div>
+            {visibleFields.nome && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="nome" className="text-right">
+                  Nome
+                </Label>
+                <Input
+                  id="nome"
+                  value={newAz.nome}
+                  onChange={(e) => setNewAz({ ...newAz, nome: e.target.value })}
+                  className="col-span-3"
+                  placeholder="Google Inc."
+                />
+              </div>
+            )}
+            {visibleFields.città && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="città" className="text-right">
+                  Città
+                </Label>
+                <Input
+                  id="città"
+                  value={newAz.città}
+                  onChange={(e) =>
+                    setNewAz({ ...newAz, città: e.target.value })
+                  }
+                  className="col-span-3"
+                  placeholder="Mountain View"
+                />
+              </div>
+            )}
+            {visibleFields.email && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="email" className="text-right">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={newAz.email}
+                  onChange={(e) =>
+                    setNewAz({ ...newAz, email: e.target.value })
+                  }
+                  className="col-span-3"
+                  placeholder="info@google.com"
+                />
+              </div>
+            )}
+            {visibleFields.pec && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="pec" className="text-right">
+                  PEC
+                </Label>
+                <Input
+                  id="pec"
+                  value={newAz.pec}
+                  onChange={(e) => setNewAz({ ...newAz, pec: e.target.value })}
+                  className="col-span-3"
+                  placeholder="pec@azienda.it"
+                />
+              </div>
+            )}
+            {visibleFields.telefono && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="telefono" className="text-right">
+                  Telefono
+                </Label>
+                <Input
+                  id="telefono"
+                  value={newAz.telefono}
+                  onChange={(e) =>
+                    setNewAz({ ...newAz, telefono: e.target.value })
+                  }
+                  className="col-span-3"
+                  placeholder="+39 0123 4567"
+                />
+              </div>
+            )}
+            {visibleFields.vat && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="vat" className="text-right">
+                  VAT/P.IVA
+                </Label>
+                <Input
+                  id="vat"
+                  value={newAz.vat}
+                  onChange={(e) => setNewAz({ ...newAz, vat: e.target.value })}
+                  className="col-span-3"
+                  placeholder="IT12345678901"
+                />
+              </div>
+            )}
+            {visibleFields.cap && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="cap" className="text-right">
+                  CAP
+                </Label>
+                <Input
+                  id="cap"
+                  value={newAz.cap}
+                  onChange={(e) => setNewAz({ ...newAz, cap: e.target.value })}
+                  className="col-span-3"
+                  placeholder="00100"
+                />
+              </div>
+            )}
+            {visibleFields.nazione && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="nazione" className="text-right">
+                  Nazione
+                </Label>
+                <Input
+                  id="nazione"
+                  value={newAz.nazione}
+                  onChange={(e) =>
+                    setNewAz({ ...newAz, nazione: e.target.value })
+                  }
+                  className="col-span-3"
+                  placeholder="Italia"
+                />
+              </div>
+            )}
           </div>
           <DialogFooter>
             <Button
