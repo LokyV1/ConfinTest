@@ -34,5 +34,3 @@
 - [x] **Temi:** `next-themes`
 - [ ] **Validazione Form:** `zod` e `react-hook-form` (da aggiungere)
 - [ ] **Animazioni:** `framer-motion` (da aggiungere)
-- [ ] **Gestione Date:** `date-fns` (da aggiungere)
-- [ ] **Data Fetching:** `@tanstack/react-query` o `axios` (da aggiungere)
