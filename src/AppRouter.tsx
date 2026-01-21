@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { DataTable } from "./components/dashboard/DataTable";
 import { SalesChart as Chart } from "./components/dashboard/SalesChart";
+import { Login } from "./components/auth/Login";
+import { Layout } from "./components/Layout";
 
 function Home() {
   return (
@@ -33,18 +35,21 @@ function Docs() {
 export function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/grafici" element={<Grafici />} />
-      <Route path="/docs" element={<Docs />} />
-      {/* Route per pagina non trovata */ }
-      <Route
-        path="*"
-        element={
-          <div className="flex justify-center p-10 font-bold">
-            Pagina non trovata
-          </div>
-        }
-      />
+      <Route path="/login" element={<Login />} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/grafici" element={<Grafici />} />
+        <Route path="/docs" element={<Docs />} />
+        {/* Route per pagina non trovata */}
+        <Route
+          path="*"
+          element={
+            <div className="flex justify-center p-10 font-bold">
+              Pagina non trovata
+            </div>
+          }
+        />
+      </Route>
     </Routes>
   );
 }
