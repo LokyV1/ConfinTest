@@ -69,6 +69,73 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const initialAziende: Azienda[] = [
+  {
+    id: "1",
+    nome: "Apple Inc.",
+    città: "Cupertino",
+    email: "info@apple.com",
+    pec: "apple@legalmail.it",
+    telefono: "+1 408-996-1010",
+    vat: "IT12345678901",
+    cap: "95014",
+    nazione: "USA",
+  },
+  {
+    id: "2",
+    nome: "Google LLC",
+    città: "Mountain View",
+    email: "contact@google.com",
+    pec: "google@legalmail.it",
+    telefono: "+1 650-253-0000",
+    vat: "IT09876543210",
+    cap: "94043",
+    nazione: "USA",
+  },
+  {
+    id: "3",
+    nome: "Microsoft Corp.",
+    città: "Redmond",
+    email: "hello@microsoft.com",
+    pec: "microsoft@legalmail.it",
+    telefono: "+1 425-882-8080",
+    vat: "IT11223344556",
+    cap: "98052",
+    nazione: "USA",
+  },
+  {
+    id: "4",
+    nome: "Amazon.com",
+    città: "Seattle",
+    email: "support@amazon.com",
+    pec: "amazon@legalmail.it",
+    vat: "IT66554433221",
+    cap: "98109",
+    nazione: "USA",
+  },
+  {
+    id: "5",
+    nome: "Ferrari S.p.A.",
+    città: "Maranello",
+    email: "info@ferrari.it",
+    pec: "ferrari@pec.it",
+    telefono: "+39 0536 949111",
+    vat: "IT00159560366",
+    cap: "41053",
+    nazione: "Italia",
+  },
+  {
+    id: "6",
+    nome: "Tesla Inc.",
+    città: "Austin",
+    email: "tesla@energy.com",
+    vat: "IT99887766554",
+    cap: "78725",
+    nazione: "USA",
+  },
+];
 
 const chartData = [
   { month: "Gennaio", vendite: 186 },
@@ -98,71 +165,18 @@ export type Azienda = {
 };
 
 export function DataTable() {
-  const [data, setData] = React.useState<Azienda[]>([
-    {
-      id: "1",
-      nome: "Apple Inc.",
-      città: "Cupertino",
-      email: "info@apple.com",
-      pec: "apple@legalmail.it",
-      telefono: "+1 408-996-1010",
-      vat: "IT12345678901",
-      cap: "95014",
-      nazione: "USA",
-    },
-    {
-      id: "2",
-      nome: "Google LLC",
-      città: "Mountain View",
-      email: "contact@google.com",
-      pec: "google@legalmail.it",
-      telefono: "+1 650-253-0000",
-      vat: "IT09876543210",
-      cap: "94043",
-      nazione: "USA",
-    },
-    {
-      id: "3",
-      nome: "Microsoft Corp.",
-      città: "Redmond",
-      email: "hello@microsoft.com",
-      pec: "microsoft@legalmail.it",
-      telefono: "+1 425-882-8080",
-      vat: "IT11223344556",
-      cap: "98052",
-      nazione: "USA",
-    },
-    {
-      id: "4",
-      nome: "Amazon.com",
-      città: "Seattle",
-      email: "support@amazon.com",
-      pec: "amazon@legalmail.it",
-      vat: "IT66554433221",
-      cap: "98109",
-      nazione: "USA",
-    },
-    {
-      id: "5",
-      nome: "Ferrari S.p.A.",
-      città: "Maranello",
-      email: "info@ferrari.it",
-      pec: "ferrari@pec.it",
-      telefono: "+39 0536 949111",
-      vat: "IT00159560366",
-      cap: "41053",
-      nazione: "Italia",
-    },
-    {
-      id: "6",
-      nome: "Tesla Inc.",
-      città: "Austin",
-      email: "tesla@energy.com",
-      vat: "IT99887766554",
-      cap: "78725",
-      nazione: "USA",
-    },
-  ]);
+  const [data, setData] = React.useState<Azienda[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    // Simula caricamento dati con delay di 3 secondi. DA RIMUOVERE IN PRODUZIONE
+    const timer = setTimeout(() => {
+      setData(initialAziende);
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -272,6 +286,15 @@ export function DataTable() {
     },
   });
 
+  const [inputPage, setInputPage] = React.useState(
+    table.getState().pagination.pageIndex + 1,
+  );
+
+  // Sincronizza l'input quando cambi pagina con i tasti Avanti/Indietro
+  React.useEffect(() => {
+    setInputPage(table.getState().pagination.pageIndex + 1);
+  }, [table.getState().pagination.pageIndex]);
+
   return (
     <div className="w-full">
       <div className="flex items-center py-4 gap-4">
@@ -332,7 +355,18 @@ export function DataTable() {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              // Mostra gli skeleton durante il caricamento
+              Array.from({ length: 5 }).map((_, i) => (
+                <TableRow key={`skeleton-${i}`}>
+                  {columns.map((_, j) => (
+                    <TableCell key={`skeleton-cell-${i}-${j}`}>
+                      <Skeleton className="h-6 w-full" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -362,10 +396,47 @@ export function DataTable() {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        {/* <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} di{" "}
-          {table.getFilteredRowModel().rows.length} righe visualizzate.
-        </div> */}
+        <div className="flex-1 text-sm text-muted-foreground">
+          Pagina {table.getState().pagination.pageIndex + 1} di{" "}
+          {table.getPageCount()}
+        </div>
+        <div className="flex-1 text-sm text-muted-foreground">
+          <span>
+            <Input
+              id="pagecounter"
+              style={{ maxWidth: "60px" }}
+              type="number"
+              value={inputPage}
+              onChange={(e) => setInputPage(Number(e.target.value))}
+            />
+          </span>
+        </div>
+        <div>
+          <span>
+            <Button
+              id="pagesender"
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                const targetPage = inputPage - 1;
+                if (targetPage >= 0 && targetPage < table.getPageCount()) {
+                  table.setPageIndex(targetPage);
+                } else {
+                  toast.error("Pagina non valida");
+                }
+              }}
+            >
+              Vai
+            </Button>
+          </span>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <span className="text-sm text-muted-foreground">
+            Totale: {table.getFilteredRowModel().rows.length} elementi
+          </span>
+        </div>
+
         <div className="space-x-2">
           <Button
             variant="outline"
@@ -687,6 +758,9 @@ function AddAziendaDialog({ onAdd }: { onAdd: (az: Azienda) => void }) {
       toast.error("Il nome è obbligatorio");
       return;
     }
+    if (!newAz.nazione) {
+      newAz.nazione = "Italia";
+    }
     onAdd({
       ...newAz,
       id: Math.random().toString(36).substr(2, 9),
@@ -913,10 +987,13 @@ function AddAziendaDialog({ onAdd }: { onAdd: (az: Azienda) => void }) {
               type="button"
               variant="outline"
               onClick={() => setOpen(false)}
+              style={{ marginTop: "10px" }}
             >
               Annulla
             </Button>
-            <Button type="submit">Aggiungi</Button>
+            <Button type="submit" style={{ marginTop: "10px" }}>
+              Aggiungi
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
