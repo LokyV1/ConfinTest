@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   ArrowUpDown,
   ChevronDown,
+  Copy,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,14 @@ import type { Azienda } from "@/types";
 import { initialAziende } from "@/data/mockData";
 import { AddAziendaDialog } from "./AddAziendaDialog";
 import { DataTableRowActions } from "./DataTableRowActions";
+
+interface ICopyButton {
+  value?: string;
+  target?: string;
+  message?: string;
+} 
+
+
 
 export function DataTable() {
   const [data, setData] = React.useState<Azienda[]>([]);
@@ -98,7 +107,21 @@ export function DataTable() {
     {
       accessorKey: "email",
       header: "Email",
-      cell: ({ row }) => <div>{row.getValue("email") || "-"}</div>,
+      cell: ({ row }) => {
+        const email = row.getValue("email") as string;
+        return (
+          <Button
+            className="flex items-center gap-2"
+            variant="ghost"
+            onClick={() => {
+              navigator.clipboard.writeText(email);
+              toast.success("Email copiata!");
+            }}
+          >
+            {email || "-"}
+          </Button>
+        );
+      },
     },
     {
       accessorKey: "pec",

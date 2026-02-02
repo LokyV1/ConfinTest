@@ -64,6 +64,15 @@ export const initialAziende: Azienda[] = [
     cap: "78725",
     nazione: "USA",
   },
+  {
+    id: "7",
+    nome: "ciao",
+    città: "quella",
+    email: "quella@quella.com",
+    vat: "IT99862726554",
+    cap: "77875",
+    nazione: "USA",
+  }
 ];
 
 export const chartData = [

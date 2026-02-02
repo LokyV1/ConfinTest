@@ -20,18 +20,6 @@ function Grafici() {
   );
 }
 
-function Docs() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] p-8">
-      <h1 className="text-4xl font-bold mb-4">Documentazione</h1>
-      <p className="text-muted-foreground text-center max-w-2xl">
-        Benvenuti nella sezione documentazione. Qui troverai tutte le
-        informazioni necessarie per utilizzare al meglio i nostri componenti.
-      </p>
-    </div>
-  );
-}
-
 export function AppRouter() {
   return (
     <Routes>
@@ -39,7 +27,6 @@ export function AppRouter() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/grafici" element={<Grafici />} />
-        <Route path="/docs" element={<Docs />} />
         {/* Route per pagina non trovata */}
         <Route
           path="*"
