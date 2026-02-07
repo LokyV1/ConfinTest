@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   ArrowUpDown,
   ChevronDown,
-  Copy,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -39,14 +38,7 @@ import type { Azienda } from "@/types";
 import { initialAziende } from "@/data/mockData";
 import { AddAziendaDialog } from "./AddAziendaDialog";
 import { DataTableRowActions } from "./DataTableRowActions";
-
-interface ICopyButton {
-  value?: string;
-  target?: string;
-  message?: string;
-} 
-
-
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function DataTable() {
   const [data, setData] = React.useState<Azienda[]>([]);
@@ -110,16 +102,23 @@ export function DataTable() {
       cell: ({ row }) => {
         const email = row.getValue("email") as string;
         return (
-          <Button
-            className="flex items-center gap-2"
-            variant="ghost"
-            onClick={() => {
-              navigator.clipboard.writeText(email);
-              toast.success("Email copiata!");
-            }}
-          >
-            {email || "-"}
-          </Button>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger>
+              <Button
+                className="flex items-center gap-2"
+                variant="ghost"
+                onClick={() => {
+                  navigator.clipboard.writeText(email);
+                  toast.success("Email copiata!");
+                }}
+              >
+                {email || "-"}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copia</p>
+            </TooltipContent>
+          </Tooltip>
         );
       },
     },
