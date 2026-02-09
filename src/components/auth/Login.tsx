@@ -26,9 +26,11 @@ export function Login() {
   function checkUser(){
     if(email === users.email && password === users.password){
         return true;
+        
     }else{
         return false;
     }
+    
   }
 
   return (

@@ -36,27 +36,35 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
+import { ModeToggle } from "../mode-toggle";
+
 const Navbar = () => (
-  <div className="w-full flex justify-center py-4 border-b sticky top-0 z-50 bg-white">
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link to="/">Home</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link to="/grafici">Grafici</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link to="/login">Login</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+  <div className="w-full flex items-center justify-between py-4 px-8 border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="flex items-center justify-center flex-1">
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+              <Link to="/">Home</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+              <Link to="/grafici">Grafici</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            {/* TODO: Da rimuovere in produzione */}
+            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+              <Link to="/login">Login (TEST)</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
+    <div className="absolute right-8 top-1/2 -translate-y-1/2">
+      <ModeToggle />
+    </div>
   </div>
 );
 
