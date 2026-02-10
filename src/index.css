@@ -28,13 +28,13 @@
     --chart-4: rgb(55 48 165);
     --chart-5: rgb(49 45 132);
     --sidebar: rgb(245 245 245);
-    --sidebar-foreground: rgb(29 41 61);
-    --sidebar-primary: rgb(100 104 240);
-    --sidebar-primary-foreground: rgb(255 255 255);
-    --sidebar-accent: rgb(225 231 253);
-    --sidebar-accent-foreground: rgb(54 64 80);
-    --sidebar-border: rgb(208 212 219);
-    --sidebar-ring: rgb(100 104 240);
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
 
     --font-sans: Inter, sans-serif;
     --font-serif: Merriweather, serif;
@@ -50,6 +50,7 @@
     --shadow-lg: 0px 4px 8px -1px rgb(0 0 0 / 0.10), 0px 4px 6px -2px rgb(0 0 0 / 0.10);
     --shadow-xl: 0px 4px 8px -1px rgb(0 0 0 / 0.10), 0px 8px 10px -2px rgb(0 0 0 / 0.10);
     --shadow-2xl: 0px 4px 8px -1px rgb(0 0 0 / 0.25);
+    --sidebar-background: 0 0% 98%;
   }
 
   .dark {
@@ -77,13 +78,13 @@
     --chart-4: rgb(68 59 201);
     --chart-5: rgb(55 48 165);
     --sidebar: rgb(29 41 61);
-    --sidebar-foreground: rgb(227 232 239);
-    --sidebar-primary: rgb(129 140 249);
-    --sidebar-primary-foreground: rgb(15 24 43);
-    --sidebar-accent: rgb(54 64 80);
-    --sidebar-accent-foreground: rgb(208 212 219);
-    --sidebar-border: rgb(75 86 102);
-    --sidebar-ring: rgb(129 140 249);
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
     
     --shadow-2xs: 0 1px 3px 0px rgb(0 0 0 / 0.05);
     --shadow-xs: 0 1px 3px 0px rgb(0 0 0 / 0.05);
@@ -93,6 +94,7 @@
     --shadow-lg: 0 1px 3px 0px rgb(0 0 0 / 0.10), 0 4px 6px -1px rgb(0 0 0 / 0.10);
     --shadow-xl: 0 1px 3px 0px rgb(0 0 0 / 0.10), 0 8px 10px -1px rgb(0 0 0 / 0.10);
     --shadow-2xl: 0 1px 3px 0px rgb(0 0 0 / 0.25);
+    --sidebar-background: 240 5.9% 10%;
   }
 }
 

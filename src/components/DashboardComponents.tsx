@@ -135,6 +135,145 @@ const initialAziende: Azienda[] = [
     cap: "78725",
     nazione: "USA",
   },
+  {
+    id: "7",
+    nome: "Google LLC",
+    città: "Mountain View",
+    email: "info@google.com",
+    pec: "google@legalmail.it",
+    telefono: "+1 650-253-0000",
+    vat: "IT12345678901",
+    cap: "94043",
+    nazione: "USA",
+  },
+  {
+    id: "8",
+    nome: "Meta Platforms Inc.",
+    città: "Menlo Park",
+    email: "contact@meta.com",
+    vat: "IT23456789012",
+    cap: "94025",
+    nazione: "USA",
+  },
+  {
+    id: "9",
+    nome: "Apple Inc.",
+    città: "Cupertino",
+    email: "support@apple.com",
+    pec: "apple@legalmail.it",
+    telefono: "+1 408-996-1010",
+    vat: "IT34567890123",
+    cap: "95014",
+    nazione: "USA",
+  },
+  {
+    id: "10",
+    nome: "Netflix Inc.",
+    città: "Los Gatos",
+    email: "media@netflix.com",
+    vat: "IT45678901234",
+    cap: "95032",
+    nazione: "USA",
+  },
+  {
+    id: "11",
+    nome: "Spotify AB",
+    città: "Stoccolma",
+    email: "office@spotify.com",
+    vat: "IT56789012345",
+    cap: "111 53",
+    nazione: "Svezia",
+  },
+  {
+    id: "12",
+    nome: "Samsung Electronics",
+    città: "Suwon",
+    email: "global@samsung.com",
+    telefono: "+82 31-200-1114",
+    vat: "IT67890123456",
+    cap: "16677",
+    nazione: "Corea del Sud",
+  },
+  {
+    id: "13",
+    nome: "Sony Group Corp.",
+    città: "Tokyo",
+    email: "info@sony.jp",
+    vat: "IT78901234567",
+    cap: "108-0075",
+    nazione: "Giappone",
+  },
+  {
+    id: "14",
+    nome: "Toyota Motor Corp.",
+    città: "Toyota",
+    email: "contact@toyota.jp",
+    vat: "IT89012345678",
+    cap: "471-8571",
+    nazione: "Giappone",
+  },
+  {
+    id: "15",
+    nome: "Volkswagen AG",
+    città: "Wolfsburg",
+    email: "vw@volkswagen.de",
+    pec: "vw@legalmail.it",
+    vat: "IT90123456789",
+    cap: "38440",
+    nazione: "Germania",
+  },
+  {
+    id: "16",
+    nome: "Siemens AG",
+    città: "Monaco di Baviera",
+    email: "contact@siemens.com",
+    telefono: "+49 89 636-00",
+    vat: "IT01234567890",
+    cap: "80333",
+    nazione: "Germania",
+  },
+  {
+    id: "17",
+    nome: "Eni S.p.A.",
+    città: "Roma",
+    email: "info@eni.it",
+    pec: "eni@pec.eni.it",
+    telefono: "+39 06 59821",
+    vat: "IT00905811006",
+    cap: "00144",
+    nazione: "Italia",
+  },
+  {
+    id: "18",
+    nome: "Enel S.p.A.",
+    città: "Roma",
+    email: "info@enel.com",
+    pec: "enel@pec.enel.it",
+    vat: "IT00811720580",
+    cap: "00198",
+    nazione: "Italia",
+  },
+  {
+    id: "19",
+    nome: "Leonardo S.p.A.",
+    città: "Roma",
+    email: "info@leonardo.com",
+    pec: "leonardo@pec.leonardo.com",
+    telefono: "+39 06 324731",
+    vat: "IT00401920585",
+    cap: "00195",
+    nazione: "Italia",
+  },
+  {
+    id: "20",
+    nome: "Pirelli & C. S.p.A.",
+    città: "Milano",
+    email: "info@pirelli.com",
+    pec: "pirelli@pec.pirelli.it",
+    vat: "IT00860340157",
+    cap: "20126",
+    nazione: "Italia",
+  },
 ];
 
 const chartData = [
@@ -169,7 +308,8 @@ export function DataTable() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    // TODO: Simula caricamento dati con delay di 3 secondi. DA RIMUOVERE IN PRODUZIONE
+    // Simula caricamento dati con delay di 3 secondi.
+    // TODO: DA RIMUOVERE IN PRODUZIONE
     const timer = setTimeout(() => {
       setData(initialAziende);
       setIsLoading(false);
@@ -216,7 +356,17 @@ export function DataTable() {
     },
     {
       accessorKey: "città",
-      header: "Città",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Città
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
       cell: ({ row }) => <div>{row.getValue("città") || "-"}</div>,
     },
     {
@@ -225,7 +375,7 @@ export function DataTable() {
       cell: ({ row }) => {
         const email = row.getValue("email") as string;
         return (
-          <Tooltip delayDuration={100}>
+          <Tooltip delayDuration={300}>
             <TooltipTrigger asChild>
               <Button
                 className="flex items-center gap-2 h-auto py-1 px-2"
@@ -251,7 +401,7 @@ export function DataTable() {
       cell: ({ row }) => {
         const pec = row.getValue("pec") as string;
         return (
-          <Tooltip delayDuration={100}>
+          <Tooltip delayDuration={300}>
             <TooltipTrigger asChild>
               <Button
                 className="flex items-center gap-2 h-auto py-1 px-2"
@@ -277,7 +427,7 @@ export function DataTable() {
       cell: ({ row }) => {
         const vat = row.getValue("vat") as string;
         return (
-          <Tooltip delayDuration={100}>
+          <Tooltip delayDuration={300}>
             <TooltipTrigger asChild>
               <Button
                 className="flex items-center gap-2 h-auto py-1 px-2"
@@ -309,8 +459,20 @@ export function DataTable() {
     },
     {
       accessorKey: "nazione",
-      header: "Nazione",
-      cell: ({ row }) => <div>{row.getValue("nazione") || "-"}</div>,
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Nazione
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue("nazione") || "-"}</div>
+      ),
     },
     {
       id: "azioni",
@@ -424,7 +586,7 @@ export function DataTable() {
                 <TableRow key={`skeleton-${i}`}>
                   {columns.map((_, j) => (
                     <TableCell key={`skeleton-cell-${i}-${j}`}>
-                      <Skeleton className="h-6 w-full" />
+                      <Skeleton className="h-6 w-full bg-slate-200" />
                     </TableCell>
                   ))}
                 </TableRow>
@@ -561,12 +723,12 @@ function DataTableRowActions({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuLabel>Azioni</DropdownMenuLabel>
+              <DropdownMenuSeparator />
               <DialogTrigger asChild>
                 <DropdownMenuItem className="cursor-pointer">
                   Modifica azienda
                 </DropdownMenuItem>
               </DialogTrigger>
-              <DropdownMenuSeparator />
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem
                   className="text-destructive focus:text-destructive cursor-pointer"

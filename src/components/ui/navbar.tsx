@@ -37,6 +37,7 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 import { ModeToggle } from "../mode-toggle";
+import { Button } from "./button";
 
 const Navbar = () => (
   <div className="w-full flex items-center justify-between py-4 px-8 border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -61,6 +62,9 @@ const Navbar = () => (
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+      <Button asChild>
+        <Link to="/login">Login</Link>
+      </Button>
     </div>
     <div className="absolute right-8 top-1/2 -translate-y-1/2">
       <ModeToggle />
