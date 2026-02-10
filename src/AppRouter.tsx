@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { DataTable } from "./components/dashboard/DataTable";
-import { SalesChart as Chart } from "./components/dashboard/SalesChart";
+import { DataTable, Chart } from "./components/DashboardComponents";
 import { Login } from "./components/auth/Login";
 import { Layout } from "./components/Layout";
 

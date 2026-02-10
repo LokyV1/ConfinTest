@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  ArrowUpDown,
-  ChevronDown,
-  X,
-} from "lucide-react";
+import { ArrowUpDown, ChevronDown, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -38,14 +34,18 @@ import type { Azienda } from "@/types";
 import { initialAziende } from "@/data/mockData";
 import { AddAziendaDialog } from "./AddAziendaDialog";
 import { DataTableRowActions } from "./DataTableRowActions";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function DataTable() {
   const [data, setData] = React.useState<Azienda[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    // Simula caricamento dati con delay di 2 secondi. 
+    // Simula caricamento dati con delay di 2 secondi.
     // TODO: DA RIMUOVERE IN PRODUZIONE
     const timer = setTimeout(() => {
       setData(initialAziende);
@@ -105,7 +105,7 @@ export function DataTable() {
           <Tooltip delayDuration={0}>
             <TooltipTrigger>
               <Button
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 h-auto py-1 px-2"
                 variant="ghost"
                 onClick={() => {
                   navigator.clipboard.writeText(email);
@@ -205,8 +205,8 @@ export function DataTable() {
             }
             className="pr-10"
           />
-          {((table.getColumn("nome")?.getFilterValue() as string) ?? "").length >
-            0 && (
+          {((table.getColumn("nome")?.getFilterValue() as string) ?? "")
+            .length > 0 && (
             <Button
               variant="ghost"
               size="sm"

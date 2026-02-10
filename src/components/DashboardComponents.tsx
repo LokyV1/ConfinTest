@@ -222,22 +222,85 @@ export function DataTable() {
     {
       accessorKey: "email",
       header: "Email",
-      cell: ({ row }) => <div>{row.getValue("email") || "-"}</div>,
+      cell: ({ row }) => {
+        const email = row.getValue("email") as string;
+        return (
+          <Tooltip delayDuration={100}>
+            <TooltipTrigger asChild>
+              <Button
+                className="flex items-center gap-2 h-auto py-1 px-2"
+                variant="ghost"
+                onClick={() => {
+                  navigator.clipboard.writeText(email);
+                  toast.success("Email copiata!");
+                }}
+              >
+                {email || "-"}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copia</p>
+            </TooltipContent>
+          </Tooltip>
+        );
+      },
     },
     {
       accessorKey: "pec",
       header: "PEC",
-      cell: ({ row }) => <div>{row.getValue("pec") || "-"}</div>,
+      cell: ({ row }) => {
+        const pec = row.getValue("pec") as string;
+        return (
+          <Tooltip delayDuration={100}>
+            <TooltipTrigger asChild>
+              <Button
+                className="flex items-center gap-2 h-auto py-1 px-2"
+                variant="ghost"
+                onClick={() => {
+                  navigator.clipboard.writeText(pec);
+                  toast.success("PEC copiata!");
+                }}
+              >
+                {pec || "-"}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copia</p>
+            </TooltipContent>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      accessorKey: "vat",
+      header: "VAT",
+      cell: ({ row }) => {
+        const vat = row.getValue("vat") as string;
+        return (
+          <Tooltip delayDuration={100}>
+            <TooltipTrigger asChild>
+              <Button
+                className="flex items-center gap-2 h-auto py-1 px-2"
+                variant="ghost"
+                onClick={() => {
+                  navigator.clipboard.writeText(vat);
+                  toast.success("VAT copiata!");
+                }}
+              >
+                {vat || "-"}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copia</p>
+            </TooltipContent>
+          </Tooltip>
+        );
+      },
     },
     {
       accessorKey: "telefono",
       header: "Telefono",
       cell: ({ row }) => <div>{row.getValue("telefono") || "-"}</div>,
-    },
-    {
-      accessorKey: "vat",
-      header: "VAT",
-      cell: ({ row }) => <div>{row.getValue("vat") || "-"}</div>,
     },
     {
       accessorKey: "cap",
@@ -463,7 +526,7 @@ export function DataTable() {
 const chartConfig = {
   vendite: {
     label: "Vendite",
-    color: "hsl(var(--chart-1))",
+    color: "var(--chart-1)",
   },
 };
 

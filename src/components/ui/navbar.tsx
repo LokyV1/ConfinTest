@@ -21,7 +21,7 @@ const ListItem = React.forwardRef<
           to={to}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            className,
           )}
           {...props}
         >
@@ -44,19 +44,19 @@ const Navbar = () => (
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
               <Link to="/">Home</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
               <Link to="/grafici">Grafici</Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            {/* TODO: Da rimuovere in produzione */}
-            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <Link to="/login">Login (TEST)</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

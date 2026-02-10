@@ -9,7 +9,7 @@ import { chartData } from "@/data/mockData";
 const chartConfig = {
   vendite: {
     label: "Vendite",
-    color: "hsl(var(--chart-1))",
+    color: "var(--chart-1)",
   },
 };
 
