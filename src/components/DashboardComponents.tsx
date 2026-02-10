@@ -169,7 +169,7 @@ export function DataTable() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    // Simula caricamento dati con delay di 3 secondi. DA RIMUOVERE IN PRODUZIONE
+    // TODO: Simula caricamento dati con delay di 3 secondi. DA RIMUOVERE IN PRODUZIONE
     const timer = setTimeout(() => {
       setData(initialAziende);
       setIsLoading(false);
