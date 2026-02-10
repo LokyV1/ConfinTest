@@ -10,7 +10,7 @@ export function Layout() {
     <SidebarProvider>
       <AppSidebar />
       <main className="w-full relative">
-        <SidebarTrigger className="absolute left-2 top-4 z-[60]" />
+        <SidebarTrigger className="fixed left-2 top-4 z-[60]" />
         <Navbar />
         <Outlet />
         <Footer />
