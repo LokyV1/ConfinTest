@@ -8,6 +8,7 @@ const Footer: React.FC = () => {
         color: "#fff",
         padding: "2rem",
         textAlign: "center",
+        marginTop: "20px",
       }}
     >
       <p>© sito web footer 2026.</p>

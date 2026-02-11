@@ -1,6 +1,5 @@
 import { Home, Inbox } from "lucide-react";
 import { Link } from "react-router-dom";
-
 import {
   Sidebar,
   SidebarContent,
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { NavUser } from "./ui/nav-user";
 import { User } from "lucide-react";
+
 // Menu items.
 const items = [
   {
@@ -39,6 +39,7 @@ const data = {
     name: "Mario Rossi",
     email: "Mario.Rossi@example.com",
     avatar: "/avatars/shadcn.jpg",
+    role: "admin",
   },
 };
 

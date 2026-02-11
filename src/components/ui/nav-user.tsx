@@ -1,14 +1,5 @@
-"use client";
-
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
-
+import { Bell, ChevronsUpDown, LogOut, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -16,7 +7,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -33,9 +23,18 @@ export function NavUser({
     name: string;
     email: string;
     avatar: string;
+    role?: string;
   };
 }) {
-  const { isMobile } = useSidebar();
+  const { isMobile, setOpen, setOpenMobile } = useSidebar();
+
+  const handleClose = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    } else {
+      setOpen(false);
+    }
+  };
 
   return (
     <SidebarMenu>
@@ -75,32 +74,21 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />
-                Notifications
+                Notifiche
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/impostazioni" onClick={handleClose}>
+                  <Settings />
+                  <span>Impostazioni</span>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
             <DropdownMenuItem className="text-red-500">
               <LogOut />
-              <span>Log out</span>
+              <span>Logout</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { DataTable, Chart } from "./components/DashboardComponents";
 import { Login } from "./components/auth/Login";
 import { Layout } from "./components/Layout";
+import { SettingsPage } from "./components/SettingsPage";
 
 function Home() {
   return (
@@ -19,6 +20,14 @@ function Grafici() {
   );
 }
 
+function Impostazioni() {
+  return (
+    <div className="center" style={{ marginTop: "20px", padding: "0 20px" }}>
+      <SettingsPage />
+    </div>
+  );
+}
+
 export function AppRouter() {
   return (
     <Routes>
@@ -26,6 +35,7 @@ export function AppRouter() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/grafici" element={<Grafici />} />
+        <Route path="/impostazioni" element={<Impostazioni />} />
         {/* Route per pagina non trovata */}
         <Route
           path="*"

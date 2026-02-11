@@ -8,6 +8,9 @@ import {
   navigationMenuTriggerStyle,
 } from "./navigation-menu";
 import { cn } from "@/lib/utils";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ModeToggle } from "../mode-toggle";
+import { Button } from "./button";
 
 const ListItem = React.forwardRef<
   HTMLAnchorElement,
@@ -36,11 +39,11 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-import { ModeToggle } from "../mode-toggle";
-import { Button } from "./button";
-
 const Navbar = () => (
   <div className="w-full flex items-center justify-between py-4 px-8 border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="absolute left-8 top-1/2 -translate-y-1/2">
+      <SidebarTrigger />
+    </div>
     <div className="flex items-center justify-center flex-1">
       <NavigationMenu>
         <NavigationMenuList>
