@@ -1,4 +1,4 @@
-import { Home, Inbox } from "lucide-react";
+import { Home, ChartNoAxesCombined } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Sidebar,
@@ -7,6 +7,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -25,7 +26,7 @@ const items = [
   {
     title: "Grafici",
     url: "/grafici",
-    icon: Inbox,
+    icon: ChartNoAxesCombined,
   },
   {
     title: "Login",
@@ -34,21 +35,14 @@ const items = [
   },
 ];
 
-const data = {
-  user: {
-    name: "Mario Rossi",
-    email: "Mario.Rossi@example.com",
-    avatar: "/avatars/shadcn.jpg",
-    role: "admin",
-  },
-};
-
 export function AppSidebar() {
   const { setOpenMobile, isMobile, setOpen } = useSidebar();
-
   return (
     <Sidebar variant="modal">
       <SidebarContent>
+        <SidebarHeader>
+          <NavUser />
+        </SidebarHeader>
         <SidebarGroup>
           <SidebarGroupLabel>Tabelle</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -75,10 +69,8 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarFooter></SidebarFooter>
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
     </Sidebar>
   );
 }

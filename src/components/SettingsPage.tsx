@@ -43,9 +43,58 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const AddUserDrawer = ({ children }: { children: ReactNode }) => {
+type User = {
+  id: string;
+  name: string;
+  cognome: string;
+  email: string;
+  password?: string;
+  role: string;
+};
+
+const AddUserDrawer = ({
+  children,
+  onAddUser,
+}: {
+  children: ReactNode;
+  onAddUser: (user: User) => void;
+}) => {
+  const [nome, setNome] = useState("");
+  const [cognome, setCognome] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleAddUser = () => {
+    if (!nome || !cognome || !email || !password) {
+      toast.error("Compila tutti i campi");
+      return;
+    }
+
+    const newUser: User = {
+      id: Math.random().toString(36).substr(2, 9),
+      name: nome,
+      cognome: cognome,
+      email: email,
+      password: password,
+      role: isAdmin ? "admin" : "user",
+    };
+
+    onAddUser(newUser);
+    toast.success("Utente aggiunto");
+
+    // Reset form
+    setNome("");
+    setCognome("");
+    setEmail("");
+    setPassword("");
+    setIsAdmin(false);
+    setIsOpen(false);
+  };
+
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
@@ -53,11 +102,43 @@ const AddUserDrawer = ({ children }: { children: ReactNode }) => {
             <DrawerTitle>Aggiungi Utente</DrawerTitle>
           </DrawerHeader>
           <div className="p-4 pb-0 space-y-4">
-            <Input placeholder="Nome" />
-            <Input placeholder="Cognome" />
-            <Input placeholder="Email" />
-            <Input placeholder="Password" name="password" type="password" />
-            <Button className="w-full">Aggiungi</Button>
+            <Input
+              placeholder="Nome"
+              id="nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <Input
+              placeholder="Cognome"
+              id="cognome"
+              value={cognome}
+              onChange={(e) => setCognome(e.target.value)}
+            />
+            <Input
+              placeholder="Email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              placeholder="Password"
+              name="password"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="admin"
+                checked={isAdmin}
+                onCheckedChange={setIsAdmin}
+              />
+              <Label htmlFor="admin">Admin</Label>
+            </div>
+            <Button className="w-full" onClick={handleAddUser}>
+              Aggiungi
+            </Button>
           </div>
           <DrawerFooter>
             <DrawerClose asChild>
@@ -93,7 +174,8 @@ const ConfirmDeleteUser = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Elimina utente</AlertDialogTitle>
           <AlertDialogDescription>
-            Sei sicuro di voler eliminare questo utente?
+            Sei sicuro di voler eliminare questo utente? <br />
+            Questa operazione non può essere annullata.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -110,11 +192,17 @@ const ConfirmDeleteUser = ({
   );
 };
 
-const RemoveUserDrawer = ({ children }: { children: ReactNode }) => {
-  const [userList, setUserList] = useState<typeof users>(users);
-
+const RemoveUserDrawer = ({
+  children,
+  userList,
+  onRemoveUser,
+}: {
+  children: ReactNode;
+  userList: User[];
+  onRemoveUser: (id: string) => void;
+}) => {
   const handleDelete = (id: string) => {
-    setUserList((prev) => prev.filter((user) => user.id !== id));
+    onRemoveUser(id);
     toast.success("Utente rimosso");
   };
 
@@ -124,7 +212,9 @@ const RemoveUserDrawer = ({ children }: { children: ReactNode }) => {
       <DrawerContent>
         <div className="mx-auto w-[1000px]">
           <DrawerHeader>
-            <DrawerTitle>Rimuovi Utente</DrawerTitle>
+            <DrawerTitle>
+              <b>Rimuovi Utente</b>
+            </DrawerTitle>
           </DrawerHeader>
           <div className="p-4 pb-0 space-y-4">
             <Label>Seleziona l'utente da rimuovere</Label>
@@ -173,6 +263,16 @@ const RemoveUserDrawer = ({ children }: { children: ReactNode }) => {
 };
 
 export function SettingsPage() {
+  const [userList, setUserList] = useState<User[]>(users);
+
+  const addUser = (user: User) => {
+    setUserList((prev) => [...prev, user]);
+  };
+
+  const removeUser = (id: string) => {
+    setUserList((prev) => prev.filter((user) => user.id !== id));
+  };
+
   return (
     <>
       <div className="grid grid-cols-3 gap-4">
@@ -198,12 +298,12 @@ export function SettingsPage() {
             <CardTitle className="text-center">Gestisci Utenti</CardTitle>
           </CardHeader>
           <CardContent>
-            <AddUserDrawer>
+            <AddUserDrawer onAddUser={addUser}>
               <Button variant="default" className="justify-center w-full mb-2">
                 Aggiungi Utente
               </Button>
             </AddUserDrawer>
-            <RemoveUserDrawer>
+            <RemoveUserDrawer userList={userList} onRemoveUser={removeUser}>
               <Button variant="default" className="justify-center w-full mb-2">
                 Rimuovi Utente
               </Button>

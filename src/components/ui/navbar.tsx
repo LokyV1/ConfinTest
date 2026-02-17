@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ModeToggle } from "../mode-toggle";
 import { Button } from "./button";
+import { useAuth } from "@/context/AuthContext";
+import { LogOut } from "lucide-react";
 
 const ListItem = React.forwardRef<
   HTMLAnchorElement,
@@ -39,40 +41,62 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-const Navbar = () => (
-  <div className="w-full flex items-center justify-between py-4 px-8 border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div className="absolute left-8 top-1/2 -translate-y-1/2">
-      <SidebarTrigger />
-    </div>
-    <div className="flex items-center justify-center flex-1">
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
+const Navbar = () => {
+  const { isAuthenticated, user, logout } = useAuth();
+
+  return (
+    <div className="w-full flex items-center justify-between py-4 px-8 border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="absolute left-8 top-1/2 -translate-y-1/2">
+        <SidebarTrigger />
+      </div>
+      <div className="flex items-center justify-center flex-1">
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link to="/dashboard">Home</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link to="/grafici">Grafici</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+
+      <div className="absolute right-8 top-1/2 -translate-y-1/2 flex items-center gap-4">
+        {isAuthenticated ? (
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-muted-foreground hidden md:inline-block">
+              {user?.email}
+            </span>
+
+            {/* TODO: DA RIMUOVERE IN PRODUZIONE */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => logout()}
             >
-              <Link to="/">Home</Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <Link to="/grafici">Grafici</Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-      <Button asChild>
-        <Link to="/login">Login</Link>
-      </Button>
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
+        ) : (
+          <Button asChild>
+            <Link to="/login">Login</Link>
+          </Button>
+        )}
+        <ModeToggle />
+      </div>
     </div>
-    <div className="absolute right-8 top-1/2 -translate-y-1/2">
-      <ModeToggle />
-    </div>
-  </div>
-);
+  );
+};
 
 export default Navbar;

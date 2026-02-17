@@ -384,6 +384,7 @@ export function DataTable() {
                   navigator.clipboard.writeText(email);
                   toast.success("Email copiata!");
                 }}
+                disabled={!email || email === "-"}
               >
                 {email || "-"}
               </Button>
@@ -410,6 +411,7 @@ export function DataTable() {
                   navigator.clipboard.writeText(pec);
                   toast.success("PEC copiata!");
                 }}
+                disabled={!pec || pec === "-"}
               >
                 {pec || "-"}
               </Button>
@@ -436,6 +438,7 @@ export function DataTable() {
                   navigator.clipboard.writeText(vat);
                   toast.success("VAT copiata!");
                 }}
+                disabled={!vat || vat === "-"}
               >
                 {vat || "-"}
               </Button>
