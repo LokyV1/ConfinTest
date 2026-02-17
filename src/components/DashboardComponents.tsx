@@ -625,35 +625,28 @@ export function DataTable() {
           Pagina {table.getState().pagination.pageIndex + 1} di{" "}
           {table.getPageCount()}
         </div>
-        <div className="flex-1 text-sm text-muted-foreground">
-          <span>
-            <Input
-              id="pagecounter"
-              style={{ maxWidth: "60px" }}
-              type="number"
-              value={inputPage}
-              onChange={(e) => setInputPage(Number(e.target.value))}
-            />
-          </span>
-        </div>
-        <div>
-          <span>
-            <Button
-              id="pagesender"
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                const targetPage = inputPage - 1;
-                if (targetPage >= 0 && targetPage < table.getPageCount()) {
-                  table.setPageIndex(targetPage);
-                } else {
-                  toast.error("Pagina non valida");
-                }
-              }}
-            >
-              Vai
-            </Button>
-          </span>
+        <div className="flex items-center space-x-2">
+          <Input
+            id="pagecounter"
+            className="w-[60px]"
+            type="number"
+            value={inputPage}
+            onChange={(e) => setInputPage(Number(e.target.value))}
+          />
+          <Button
+            id="pagesender"
+            variant="outline"
+            onClick={() => {
+              const targetPage = inputPage - 1;
+              if (targetPage >= 0 && targetPage < table.getPageCount()) {
+                table.setPageIndex(targetPage);
+              } else {
+                toast.error("Pagina non valida");
+              }
+            }}
+          >
+            Vai
+          </Button>
         </div>
 
         <div className="flex items-center space-x-2">
