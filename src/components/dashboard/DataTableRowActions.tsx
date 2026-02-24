@@ -29,10 +29,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import type { Azienda } from "@/types";
+import { verifyToken } from "@/Helpers/VerifyToken";
 
 interface DataTableRowActionsProps {
   row: any;
@@ -47,12 +47,16 @@ export function DataTableRowActions({
 }: DataTableRowActionsProps) {
   const azienda = row.original;
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
   const [editedAzienda, setEditedAzienda] = React.useState(azienda);
 
   return (
     <div className="flex items-center gap-2">
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <AlertDialog>
+        <AlertDialog
+          open={isDeleteDialogOpen}
+          onOpenChange={setIsDeleteDialogOpen}
+        >
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -72,14 +76,20 @@ export function DataTableRowActions({
                 </DropdownMenuItem>
               </DialogTrigger>
               <DropdownMenuSeparator />
-              <AlertDialogTrigger asChild>
-                <DropdownMenuItem
-                  className="text-destructive focus:text-destructive cursor-pointer"
-                  onSelect={(e) => e.preventDefault()}
-                >
-                  Elimina
-                </DropdownMenuItem>
-              </AlertDialogTrigger>
+              <DropdownMenuItem
+                className="text-destructive focus:text-destructive cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  //TODO: sostituire localstorage con il server backend
+                  if (verifyToken(localStorage.getItem("token"))) {
+                    setIsDeleteDialogOpen(true);
+                  } else {
+                    toast.error("Azione non autorizzata. Sessione scaduta.");
+                  }
+                }}
+              >
+                Elimina
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -229,8 +239,12 @@ export function DataTableRowActions({
               </Button>
               <Button
                 onClick={() => {
-                  onUpdate(editedAzienda);
-                  setIsEditDialogOpen(false);
+                  if (verifyToken(localStorage.getItem("token"))) {
+                    onUpdate(editedAzienda);
+                    setIsEditDialogOpen(false);
+                  } else {
+                    toast.error("Azione non autorizzata. Sessione scaduta.");
+                  }
                 }}
               >
                 Salva

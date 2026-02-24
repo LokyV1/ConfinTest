@@ -70,6 +70,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const initialAziende: Azienda[] = [
   {
@@ -308,7 +309,7 @@ export function DataTable() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    // Simula caricamento dati con delay di 3 secondi.
+    // Simula caricamento dati con delay di 2 secondi.
     // TODO: DA RIMUOVERE IN PRODUZIONE
     const timer = setTimeout(() => {
       setData(initialAziende);
@@ -537,8 +538,11 @@ export function DataTable() {
         <AddAziendaDialog onAdd={(newAz) => setData([...data, newAz])} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Colonne <ChevronDown />
+            <Button
+              variant="outline"
+              className="ml-auto flex items-center gap-2"
+            >
+              Colonne <ChevronDown className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -658,22 +662,26 @@ export function DataTable() {
           </span>
         </div>
 
-        <div className="space-x-2">
+        <div className="flex items-center space-x-2">
           <Button
             variant="outline"
             size="sm"
+            className="flex items-center gap-1"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
+            <ChevronLeft className="h-4 w-4" />
             Indietro
           </Button>
           <Button
             variant="outline"
             size="sm"
+            className="flex items-center gap-1"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
             Avanti
+            <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
       </div>

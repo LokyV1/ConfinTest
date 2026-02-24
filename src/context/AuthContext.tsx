@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { type User, authService } from "@/api/auth";
+import { errorHandler } from "@/Helpers/ErrorHandler";
 
+//interfaccia per il contesto di autenticazione
 interface AuthContextType {
   user: User | null;
   token: string | null;
@@ -10,8 +12,10 @@ interface AuthContextType {
   logout: () => void;
 }
 
+//creazione del contesto
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+//provider del contesto
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(
@@ -19,6 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  //hook per inizializzare l'autenticazione
   useEffect(() => {
     const initAuth = async () => {
       const storedToken =
@@ -34,6 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
         } catch (error) {
           handleLogout();
+          errorHandler(error);
         }
       }
       setIsLoading(false);
@@ -42,6 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initAuth();
   }, []);
 
+  //funzione per il login
   const handleLogin = async (
     email: string,
     password: string,
@@ -61,10 +68,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(response.token);
       setUser(response.user);
     } catch (error) {
+      errorHandler(error);
       throw error;
     }
   };
 
+  //funzione per il logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -90,6 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+//hook per utilizzare il contesto
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {

@@ -13,12 +13,14 @@ import { useNavigate } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
+import { validateEmail } from "@/Helpers/MailVerification";
+import { Spinner } from "../ui/spinner";
 
 export function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@mariorossi.com");
+  const [password, setPassword] = useState("admin");
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,6 +60,11 @@ export function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLoading}
+                onBlur={() => {
+                  if (!validateEmail(email)) {
+                    toast.error("Email non valida");
+                  }
+                }}
               />
             </div>
             <div className="grid gap-2">
@@ -82,7 +89,13 @@ export function Login() {
               <Label htmlFor="keep-connected">Resta connesso</Label>
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Accesso in corso..." : "Login"}
+              {isLoading ? (
+                <>
+                  <Spinner className="mr-2 h-4 w-4" /> Accesso in corso...
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
         </CardContent>
