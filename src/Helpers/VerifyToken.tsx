@@ -21,7 +21,7 @@ export const verifyToken = (token: string | null): boolean => {
 
     // Verifica se il tempo di scadenza è maggiore del tempo attuale
     return decoded.exp > currentTime;
-  } catch (error) {
+  } catch {
     // Se il decoding fallisce, il token non è valido
     return false;
   }

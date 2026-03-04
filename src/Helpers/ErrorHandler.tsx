@@ -1,15 +1,15 @@
 import axios from "axios";
 import { toast } from "sonner";
 
-export const errorHandler = (error: any) => {
+export const errorHandler = (error: unknown) => {
     if (axios.isAxiosError(error)) {
-        var err = error.response?.data;
+        const err = error.response?.data;
         if (Array.isArray(err?.data.errors)) {
-            for (let val of err.data.errors) {
+            for (const val of err.data.errors) {
                 toast.error(val);
             }
         } else if (typeof err?.data.errors === "object") {
-            for(let e in err?.data.errors) {
+            for(const e in err?.data.errors) {
                 toast.error(err?.data.errors[e][0]);
             }
         } else if (err?.data) {

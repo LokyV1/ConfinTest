@@ -32,7 +32,6 @@ export function Login() {
       toast.success("Login effettuato con successo");
       navigate("/dashboard");
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       toast.error(
         error instanceof Error ? error.message : "Credenziali non valide",
       );

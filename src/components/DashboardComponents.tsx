@@ -491,6 +491,7 @@ export function DataTable() {
     },
   ];
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,
@@ -519,10 +520,11 @@ export function DataTable() {
     table.getState().pagination.pageIndex + 1,
   );
 
+  const pageIndex = table.getState().pagination.pageIndex;
   // Sincronizza l'input quando cambi pagina con i tasti Avanti/Indietro
   React.useEffect(() => {
-    setInputPage(table.getState().pagination.pageIndex + 1);
-  }, [table.getState().pagination.pageIndex]);
+    setInputPage(pageIndex + 1);
+  }, [pageIndex]);
 
   return (
     <div className="w-full">
@@ -696,8 +698,10 @@ const chartConfig = {
   },
 };
 
+import type { Row } from "@tanstack/react-table";
+
 interface DataTableRowActionsProps {
-  row: any;
+  row: Row<Azienda>;
   onDelete: (id: string) => void;
   onUpdate: (azienda: Azienda) => void;
 }
@@ -987,11 +991,10 @@ function AddAziendaDialog({ onAdd }: { onAdd: (az: Azienda) => void }) {
       toast.error("Il nome è obbligatorio");
       return;
     }
-    if (!newAz.nazione) {
-      newAz.nazione = "Italia";
-    }
+    const finalNazione = newAz.nazione || "Italia";
     onAdd({
       ...newAz,
+      nazione: finalNazione,
       id: Math.random().toString(36).substr(2, 9),
     } as Azienda);
     setOpen(false);
