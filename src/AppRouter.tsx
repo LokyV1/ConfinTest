@@ -4,6 +4,7 @@ import { Login } from "./components/auth/Login";
 import { Layout } from "./components/Layout";
 import { SettingsPage } from "./components/SettingsPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Register } from "./components/auth/Register";
 
 function Dashboard() {
   return (
@@ -40,6 +41,7 @@ export function AppRouter() {
           <Route path="/grafici" element={<Grafici />} />
           <Route path="/impostazioni" element={<Impostazioni />} />
           {/* Route per pagina non trovata */}
+          <Route path="/register" element={<Register />} />
           <Route
             path="*"
             element={

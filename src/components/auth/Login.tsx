@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import { validateEmail } from "@/Helpers/MailVerification";
 import { Spinner } from "../ui/spinner";
+import { Link } from "react-router-dom";
 
 export function Login() {
   const navigate = useNavigate();
@@ -97,6 +98,9 @@ export function Login() {
               )}
             </Button>
           </form>
+          <p className="mt-4 text-center text-sm">
+            Oppure registrati <Link className="underline" to="/register">qui</Link>
+          </p>
         </CardContent>
       </Card>
     </div>
