@@ -34,8 +34,10 @@ import { toast } from "sonner";
 import type { Azienda } from "@/types";
 import { verifyToken } from "@/Helpers/VerifyToken";
 
+import type { Row } from "@tanstack/react-table";
+
 interface DataTableRowActionsProps {
-  row: any;
+  row: Row<Azienda>;
   onDelete: (id: string) => void;
   onUpdate: (azienda: Azienda) => void;
 }

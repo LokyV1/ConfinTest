@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { type User, authService } from "@/api/auth";
 import { errorHandler } from "@/Helpers/ErrorHandler";
@@ -22,6 +23,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.getItem("token") || sessionStorage.getItem("token"),
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  //funzione per il logout
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    setToken(null);
+    setUser(null);
+  };
 
   //hook per inizializzare l'autenticazione
   useEffect(() => {
@@ -73,15 +84,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  //funzione per il logout
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("user");
-    setToken(null);
-    setUser(null);
-  };
 
   return (
     <AuthContext.Provider

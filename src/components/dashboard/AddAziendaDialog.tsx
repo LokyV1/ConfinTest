@@ -60,11 +60,10 @@ export function AddAziendaDialog({ onAdd }: { onAdd: (az: Azienda) => void }) {
       toast.error("Il nome è obbligatorio");
       return;
     }
-    if (!newAz.nazione) {
-      newAz.nazione = "Italia";
-    }
+    const finalNazione = newAz.nazione || "Italia";
     onAdd({
       ...newAz,
+      nazione: finalNazione,
       id: Math.random().toString(36).substr(2, 9),
     } as Azienda);
     setOpen(false);

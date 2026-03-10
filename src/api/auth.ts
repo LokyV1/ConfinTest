@@ -37,6 +37,7 @@ export const authService = {
     const token = btoa(`${user.id}:${expiration}:${MOCK_JWT_SECRET}`);
 
     // Return user without password
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userWithoutPassword } = user;
 
     return {
@@ -75,10 +76,11 @@ export const authService = {
 
            const user = users.find(u => u.id === userId);
            if (user) {
+               // eslint-disable-next-line @typescript-eslint/no-unused-vars
                const { password: _, ...userWithoutPassword } = user;
                return userWithoutPassword;
            }
-       } catch (e) {
+       } catch {
            return null;
        }
        return null;
